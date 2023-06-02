@@ -1,21 +1,21 @@
 import {Room} from "./Room";
 import {RoomManager} from "../manager/RoomManager";
 
- export class Bill extends RoomManager{
+ export class Bill {
     private _staffName : string
     private _guestName : string
     private _startTime : number
     private _endTime : number
     private _idBill : number
     private _toTal : number
-     constructor(staffName: string, guestName: string, startTime: number, endTime: number, idBill: number,toTal : number) {
-         super();
+
+     constructor(staffName: string, guestName: string, startTime: number, endTime: number, idBill: number, toTal: number) {
          this._staffName = staffName;
          this._guestName = guestName;
          this._startTime = startTime;
          this._endTime = endTime;
          this._idBill = idBill;
-         this._toTal = toTal
+         this._toTal = toTal;
      }
 
      get staffName(): string {

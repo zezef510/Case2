@@ -130,7 +130,16 @@ while (choice != 0 ){
                             let startTime = input.question(`Vui long nhap thoi gian bat dau thue phong`)
                             let endTime = input.question(`Vui long nhap thoi gian ket thuc thue phong`)
                             bill.addNewBill(NV,KH,startTime,endTime,ID,room.calculateTotalPrice(idRoom,startTime,endTime))
-
+                        }
+                        if (choice4 == 3){
+                            let idEdit = input.question(`Vui long nhap vao ten id muon chinh sua`)
+                            let nameKH = input.question(`Vui long nhap ten khach hang muon sua `)
+                            let nameNV = input.question(`Vui long nhap ten nhan vien muon sua`)
+                            let timeStart = input.question(`Vui long nhap thoi gian bat dau muon sua`)
+                            let timeEnd = input.question(`Vui long nhap thoi gian ket thuc muon sua`)
+                            let total = input.question(`Vui long nhap vao tong tien muon thay doi`)
+                            let edit = new Bill(nameNV,nameKH,timeStart,timeEnd,idEdit,total)
+                            bill.editBill(idEdit,edit)
                         }
                     }
                 }

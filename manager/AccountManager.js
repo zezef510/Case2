@@ -7,20 +7,15 @@ var AccountManager = /** @class */ (function () {
         this.listAccount = [];
     }
     AccountManager.prototype.registration = function (nameAccount, pass, numberPhone, address, email, age, username) {
-        var check = false;
         for (var i = 0; i < this.listAccount.length; i++) {
             if (this.listAccount[i].nameAccount == nameAccount) {
-                check = true;
+                console.log("Da ton tai ten dang nhap nay");
                 return;
             }
         }
-        if (check) {
-            console.log("Da ton tai ten dang nhap nay");
-            return;
-        }
         var newAcc = new Account_1.Account(nameAccount, pass, numberPhone, address, email, age, username);
         this.listAccount.push(newAcc);
-        console.log("Them thanh cong hay dang nhap ");
+        console.log("Them thanh cong bay gio ban hay dang nhap ");
     };
     AccountManager.prototype.login = function (nameAcc, password) {
         var userLogin;
@@ -48,6 +43,10 @@ var AccountManager = /** @class */ (function () {
             console.table(arrShow);
         }
     };
+    //  checkEmail(email) {
+    //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //     return regex.test(email);
+    // }
     AccountManager.prototype.search = function () {
     };
     return AccountManager;

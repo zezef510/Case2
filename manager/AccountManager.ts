@@ -39,10 +39,10 @@ import {Account} from "../entity/Account";
             console.table(arrShow)
         }
     }
-      checkEmail(email) {
-         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-         return regex.test(email);
-     }
+     //  checkEmail(email) {
+     //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     //     return regex.test(email);
+     // }
     search(){
 
     }

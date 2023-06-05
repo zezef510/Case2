@@ -1,9 +1,9 @@
-import {Account} from "../entity/Account";
-import {AccountManager} from "./AccountManager";
-import {RoomManager} from "./RoomManager";
-import {Room} from "../entity/Room";
-import {BillManager} from "./BillManager";
-import {Bill} from "../entity/Bill";
+//import {Account} from "../entity/Account";
+import {AccountManager} from "./accountManager";
+import {RoomManager} from "./roomManager";
+import {Room} from "../entity/room";
+import {BillManager} from "./billManager";
+import {Bill} from "../entity/bill";
 // @ts-ignore
 let input = require(`readline-sync`)
 let  acc =  new AccountManager()
@@ -14,27 +14,31 @@ function   checkEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
-
+function validatePhoneNumber(phoneNumber: string): boolean {
+    // Kiểm tra số điện thoại chỉ chứa các ký tự là số và có độ dài từ 10 đến 11
+    const phoneNumberRegex = /^[0-9]{10}$/;
+    return phoneNumberRegex.test(phoneNumber);
+}
 
 
 while (choice != 0 ){
    console.log(`=======Menu=======` +
-    `\n  1.Dang nhap  ` +
+    `\n  1.Dang nhap ` +
     `\n  2.Dang ky `
    )
-    choice = input.question(`Vui long lua chon : (1-2)`)
+    choice = input.question(`Vui long lua chon : (1-2) `)
     if ( choice == 1 ){
         console.log(`Nhap thong tin dang nhap cua ban`);
-        const Username = input.question(`Ten dang nhap`)
-        const Pass = input.question(`Mat khau `)
+        const Username = input.question(`Ten dang nhap : `)
+        const Pass = input.question(`Mat khau : `)
         let userLogin = acc.login(Username,Pass)
         if ( userLogin == undefined){
             console.log(`Khong co thong tin ban vua nhap `)
             console.log(`Vui long nhap tai khoan moi`)
         }else  {
             console.log(`Dang nhap thanh cong `)
-            let choice2 = -2
-            while (choice2 != 0 ){
+            let menu = -2
+            while (menu != 0 ){
                 console.log(`======Menu======`+
                 `\n 1. Xem thong tin tai khoan`+
                 `\n 2. Kiem tra cac tai khoan`+
@@ -42,127 +46,157 @@ while (choice != 0 ){
                 `\n 4. Quan ly hoa don `+
                 `\n 5. Thong ke doanh thu `+
                 `\n 0. Thoat `);
-                choice2 = input.question(`Vui long lua chon (1-3)`)
-                if (choice2 ==  0){
+                menu = input.question(`Vui long lua chon (1-3) : `)
+                if (menu ==  0){
                     break
                 }
-                if (choice2 == 1 ){
+                if (menu == 1 ){
                     acc.show()
                 }
-                if (choice2 == 2){
+                if (menu == 2){
                     let nameUser = input.question(`Nhap Username ban muon kiem tra`)
                     acc.check(nameUser)
                 }
-                if (choice2 ==3 ){
-                    let choice3 = -3
-                    while (choice3 != 0 ){
-                    console.log(`====Quan ly phong === ` +
-                    `\n  1.Hien thi danh sach phong ` +
-                    `\n  2.Tim kiem phong con trongtheo gia  ` +
+                if (menu ==3 ){
+                    let menuRoom = -3
+                    while (menuRoom != 0 ){
+                    console.log(`==== Quan ly phong ==== ` +
+                    `\n  1. Hien thi danh sach phong theo trang thai ` +
+                    `\n  2. Tim kiem phong con trongtheo gia  ` +
                     `\n  3. Kiem tra  trang thai 1 phong trong khoang thoi gian `+
-                    `\n  4.Them phong ` +
+                    `\n  4. Them phong ` +
                     `\n  5. Sua phong ` +
                     `\n  6. Tinh tien  phong ` +
+                    `\n  7. Hien thi danh sach phong theo ten ` +
+                    `\n  8. Xoa phong ` +
                     `\n  0. Thoat `)
-                    choice3 = input.question(`Vui long lua chon (1-5) `)
-                        if (choice3 == 0 ){
+                    menuRoom = input.question(`Vui long lua chon (0-7) `)
+                        if (menuRoom == 0 ){
                             break
                         }
-                        if (choice3 == 1){
+                        if (menuRoom == 1){
                             room.showRoom()
                         }
-                        if (choice3 == 2){
+                        if (menuRoom == 2){
                             let minPrice = input.question(`Vui long nhap khoang gia tu : `)
                             let maxPrice = input.question(`Den: `)
                             room.findEmptyRoomByPrice(minPrice,maxPrice)
                         }
-                        if (choice3 == 3){
+                        if (menuRoom == 3){
+                            console.log(`Hehe ban da bi lua`)
 
                         }
-                        if (choice3 == 4 ){
-                            let newID = input.question(`Ma id phong moi` )
-                            let newNameRoom = input.question(`Ten phong moi `)
-                            let price = input.questionInt(`Gia cua phong moi `)
-                            let toiletNumber = input.questionInt(`So nha ve sinh cua phong `)
-                            let numberBedrooms = input.questionInt(`So phong ngu cua phong `)
+                        if (menuRoom == 4 ){
+                            let newID = input.question(`Ma id phong moi : ` )
+                            let newNameRoom = input.question(`Ten phong moi : `)
+                            let price = input.questionInt(`Gia cua phong moi : `)
+                            let toiletNumber = input.questionInt(`So nha ve sinh cua phong : `)
+                            let numberBedrooms = input.questionInt(`So phong ngu cua phong : `)
                             room.addRoom(newID,newNameRoom,price,"Ready",toiletNumber,numberBedrooms)
                         }
-                        if (choice3 == 5 ){
-                            let idEdit = input.question(`Nhap id muon sua `)
-                            let NameRoomEdit = input.question(`Sua ten thanh ` )
-                            let price = input.questionInt(`Sua gia thanh ` )
-                            let status = input.question(`Sua trang thai thanh => Ready, EmptyRoom hoac Fixing `)
-                            let toiletNumber = input.questionInt (`Sua  so phong toilet thanh `)
-                            let numberBedrooms = input.questionInt(`Sua so phong ngu thanh `)
+                        if (menuRoom == 5 ){
+                            let idEdit = input.question(`Nhap id muon sua : `)
+                            let NameRoomEdit = input.question(`Sua ten thanh : ` )
+                            let price = input.questionInt(`Sua gia thanh : ` )
+                            let status = input.question(`Sua trang thai thanh => Ready, EmptyRoom hoac Fixing : `)
+                            let toiletNumber = input.questionInt (`Sua  so phong toilet thanh : `)
+                            let numberBedrooms = input.questionInt(`Sua so phong ngu thanh : `)
                             let edit = new Room(idEdit,NameRoomEdit,price,status,toiletNumber,numberBedrooms)
                             room.editRoom(idEdit,edit)
                         }
-                        if (choice3 == 6){
-                            let idTotal = input.question(`nhap id phong muon tinh tien`)
-                             let startTime = input.question(`Ngay bat dau thue phong co chuoi dinh dang YYYY-MM-DD`)
-                             let endTime = input.question(`Ngay ket thuc  thue phong co chuoi dinh dang YYYY-MM-DD`)
+                        if (menuRoom == 6){
+                            let idTotal = input.question(`nhap id phong muon tinh tien `)
+                             let startTime = input.question(`Ngay bat dau thue phong co chuoi dinh dang YYYY-MM-DD `)
+                             let endTime = input.question(`Ngay ket thuc  thue phong co chuoi dinh dang YYYY-MM-DD `)
                             room.calculateTotalPrice(idTotal,startTime,endTime)
+                        }
+                        if (menuRoom == 7){
+                            room.showRoomName()
+                        }
+                        if (menuRoom == 8){
+                            let idDelete =input.questionInt(` Vui long nhap vao id phong ban muon xoa : `)
+                            room.deleteRoom(idDelete)
                         }
                     }
 
 
                 }
-                if (choice2 == 4){
-                    let choice4 = -4
-                    while (choice4 != 0){
+                if (menu == 4){
+                    let menuBill = -4
+                    while (menuBill != 0){
                         console.log(`=====Quan ly hoa don===== `+
                         `\n 1.Hien thi hoa don `+
                         `\n 2.Them hoa don moi `+
                         `\n 3.Sua hoa don ` +
+                        `\n 4.Xoa hoa don ` +
                         `\n 0. Thoat `)
-                        choice4 = input.question(`Lua chon tu 0 den 3 `)
-                        if (choice4 == 0){
+                        menuBill = input.question(`Lua chon tu 0 den 3 `)
+                        if (menuBill == 0){
                             break
                         }
-                        if (choice4 == 1 ){
+                        if (menuBill == 1 ){
                             bill.show()
                         }
-                        if (choice4 == 2){
-                            let KH = input.question(`Vui long nhap ten khach hang muon thanh toan`)
-                            let NV = input.question(`Vui long nhap ten nhan vien `)
-                            let ID = input.question(`Vui long nhap ID hoa don`)
-                            let idRoom = input.question(`Vui long nhap id cua phong muon thanh toan `)
-                            let startTime = input.question(`Vui long nhap thoi gian bat dau thue phong`)
-                            let endTime = input.question(`Vui long nhap thoi gian ket thuc thue phong`)
+                        if (menuBill == 2){
+                            let KH = input.question(`Vui long nhap ten khach hang muon thanh toan : `)
+                            let NV = input.question(`Vui long nhap ten nhan vien : `)
+                            let ID = input.question(`Vui long nhap ID hoa don : `)
+                            let idRoom = input.question(`Vui long nhap id cua phong muon thanh toan : `)
+                            let startTime = input.question(`Vui long nhap thoi gian bat dau thue phong chuoi dinh dang YYYY-MM-DD : `)
+                            let endTime = input.question(`Vui long nhap thoi gian ket thuc thue phong chuoi dinh dang YYYY-MM-DD : `)
                             bill.addNewBill(NV,KH,startTime,endTime,ID,room.calculateTotalPrice(idRoom,startTime,endTime))
                         }
-                        if (choice4 == 3){
-                            let idEdit = input.question(`Vui long nhap vao ten id muon chinh sua`)
-                            let nameKH = input.question(`Vui long nhap ten khach hang muon sua `)
-                            let nameNV = input.question(`Vui long nhap ten nhan vien muon sua`)
-                            let timeStart = input.question(`Vui long nhap thoi gian bat dau muon sua`)
-                            let timeEnd = input.question(`Vui long nhap thoi gian ket thuc muon sua`)
+                        if (menuBill == 3){
+                            let idEdit = input.question(`Vui long nhap vao ten id muon chinh sua : `)
+                            let nameKH = input.question(`Vui long nhap ten khach hang muon sua : `)
+                            let nameNV = input.question(`Vui long nhap ten nhan vien muon sua :`)
+                            let timeStart = input.question(`Vui long nhap thoi gian bat dau muon sua chuoi dinh dang YYYY-MM-DD :`)
+                            let timeEnd = input.question(`Vui long nhap thoi gian ket thuc muon sua chuoi dinh dang YYYY-MM-DD :`)
                             let total = input.question(`Vui long nhap vao tong tien muon thay doi`)
                             let edit = new Bill(nameNV,nameKH,timeStart,timeEnd,idEdit,total)
                             bill.editBill(idEdit,edit)
                         }
+                        if (menuBill == 4){
+                            let idDeleteBill = input.questionInt( `Vui long nhap vao ID Bill muon xoa`)
+                            bill.deleteBill(idDeleteBill)
+                        }
                     }
+                }
+                if (menu == 5){
+                    bill.toTal()
                 }
             }
         }
 
     }
+    let phone : string = ``
+    let email : string = ``
+    let age  : number
+    let count = 0
     if ( choice == 2){
-        console.log(`Tao tai khoan moi`)
-        let nameAcc  = input.question(`Username`)
-        let pass = input.question(`Password`)
-        let phone  = input.questionInt(`NumberPhone`)
-        let address  = input.question(`Address`)
-        let email = input.question(`Email`)
-        let age = input.questionInt(`Age`)
-        let name = input.question(`Yourname`)
-        acc.registration(nameAcc,pass,phone,address,email,age,name)
-        if (age < 18){
-            console.log(`Ban can tren 18 tuoi de dang ky tai khoan`)
-        }
-            if (!checkEmail(email)) {
-               console.log('Địa chỉ email không hợp lệ. Vui lòng nhập lại.');
+        console.log(`===== Tao tai khoan moi =====`)
+        let nameAcc  = input.question(`Username : `)
+        let pass = input.question(`Password : `)
+        do {
+            phone = input.question(`NumberPhone : `)
+            count ++
+            if (!validatePhoneNumber(phone)  && count >= 1){
+                console.log(" Ban phai nhap dung 10 so , vui long thu lai")
             }
+        } while (!validatePhoneNumber(phone))
+        let address  = input.question(`Address : `)
+        do {
+            email = input.question(`Email : `)
+        }while (!checkEmail(email))
+
+        do {
+            age = input.questionInt(`Age : `)
+        }while (age < 18)
+
+        let name = input.question(`YourName : `)
+        acc.registration(nameAcc,pass,phone,address,email,age,name)
+
+
 
         }
 

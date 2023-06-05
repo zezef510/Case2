@@ -1,4 +1,4 @@
-import {Account} from "../entity/Account";
+import {Account} from "../entity/account";
 
  export class AccountManager {
     listAccount : Account[] = []
@@ -6,7 +6,7 @@ import {Account} from "../entity/Account";
     registration(nameAccount: string, pass: string, numberPhone: string, address: string, email: string, age: number, username: string){
         for (let i = 0; i < this.listAccount.length; i++) {
             if(this.listAccount[i].nameAccount == nameAccount){
-                console.log(`Da ton tai ten dang nhap nay`)
+                console.log(`Dang ky khong thanh cong `)
                 return;
             }
         }
@@ -43,7 +43,5 @@ import {Account} from "../entity/Account";
      //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
      //     return regex.test(email);
      // }
-    search(){
 
-    }
 }

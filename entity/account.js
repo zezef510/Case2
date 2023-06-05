@@ -9,7 +9,7 @@ var Account = /** @class */ (function () {
         this._address = address;
         this._email = email;
         this._age = age;
-        this._username = username;
+        this._userName = username;
     }
     Object.defineProperty(Account.prototype, "nameAccount", {
         get: function () {
@@ -71,12 +71,12 @@ var Account = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Account.prototype, "username", {
+    Object.defineProperty(Account.prototype, "userName", {
         get: function () {
-            return this._username;
+            return this._userName;
         },
         set: function (value) {
-            this._username = value;
+            this._userName = value;
         },
         enumerable: false,
         configurable: true

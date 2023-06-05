@@ -1,19 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AccountManager = void 0;
-var Account_1 = require("../entity/Account");
+var account_1 = require("../entity/account");
 var AccountManager = /** @class */ (function () {
     function AccountManager() {
         this.listAccount = [];
+        //  checkEmail(email) {
+        //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        //     return regex.test(email);
+        // }
     }
     AccountManager.prototype.registration = function (nameAccount, pass, numberPhone, address, email, age, username) {
         for (var i = 0; i < this.listAccount.length; i++) {
             if (this.listAccount[i].nameAccount == nameAccount) {
-                console.log("Da ton tai ten dang nhap nay");
+                console.log("Dang ky khong thanh cong ");
                 return;
             }
         }
-        var newAcc = new Account_1.Account(nameAccount, pass, numberPhone, address, email, age, username);
+        var newAcc = new account_1.Account(nameAccount, pass, numberPhone, address, email, age, username);
         this.listAccount.push(newAcc);
         console.log("Them thanh cong bay gio ban hay dang nhap ");
     };
@@ -42,12 +46,6 @@ var AccountManager = /** @class */ (function () {
         else {
             console.table(arrShow);
         }
-    };
-    //  checkEmail(email) {
-    //     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    //     return regex.test(email);
-    // }
-    AccountManager.prototype.search = function () {
     };
     return AccountManager;
 }());

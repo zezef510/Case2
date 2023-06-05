@@ -1,5 +1,5 @@
-import {Room} from "./Room";
-import {RoomManager} from "../manager/RoomManager";
+import {Room} from "./room";
+import {RoomManager} from "../manager/roomManager";
 
  export class Bill {
     private _staffName : string

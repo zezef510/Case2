@@ -5,7 +5,7 @@ export class Account {
     private _address : string;
     private _email : string;
     private _age : number
-    private _username : string
+    private _userName : string
 
     constructor(nameAccount: string, pass: string, numberPhone: string, address: string, email: string, age: number, username: string) {
         this._nameAccount = nameAccount;
@@ -14,7 +14,7 @@ export class Account {
         this._address = address;
         this._email = email;
         this._age = age;
-        this._username = username;
+        this._userName = username;
     }
 
     get nameAccount(): string {
@@ -65,11 +65,11 @@ export class Account {
         this._age = value;
     }
 
-    get username(): string {
-        return this._username;
+    get userName(): string {
+        return this._userName;
     }
 
-    set username(value: string) {
-        this._username = value;
+    set userName(value: string) {
+        this._userName = value;
     }
 }

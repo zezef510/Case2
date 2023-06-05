@@ -1,4 +1,4 @@
-import {Room} from "../entity/Room";
+import {Room} from "../entity/room";
 
 export class RoomManager {
  listRooms : Room[] = [new Room(1, 'Phòng 1', 1000000, 'Ready', 2, 1),
@@ -26,6 +26,9 @@ export class RoomManager {
         });
 
         console.table(sortedRoomList.map(({nameRoom, price, status}) => ({nameRoom, price, status})));
+    }
+    showRoomName(){
+        console.table(this.listRooms.map(({nameRoom, price, status}) => ({nameRoom, price, status})));
     }
     findEmptyRoomByPrice(minPrice : number, maxPrice:number){
         let arrFind = []
@@ -86,7 +89,17 @@ export class RoomManager {
         console.log(`Tong tien phai thanh toan cua phong la ${A} VND : `)
         return A
 
-
     }
+    deleteRoom(id : number){
+        const  newList = this.listRooms.filter((del)=>del.id !==  id)
+        if ( newList.length === this.listRooms.length ){
+            console.log(`Ko ton tai `)
+        }
+        else {
+            this.listRooms = newList
+            console.log(`Xoa thanh cong `)
+        }
+    }
+
 
 }

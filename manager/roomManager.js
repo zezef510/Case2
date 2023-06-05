@@ -1,19 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoomManager = void 0;
-var Room_1 = require("../entity/Room");
+var room_1 = require("../entity/room");
 var RoomManager = /** @class */ (function () {
     function RoomManager() {
-        this.listRooms = [new Room_1.Room(1, 'Phòng 1', 1000000, 'Ready', 2, 1),
-            new Room_1.Room(2, 'Phòng 2', 1500000, 'EmptyRoom', 1, 1),
-            new Room_1.Room(3, 'Phòng 3', 2000000, 'Fixing', 3, 2),
-            new Room_1.Room(4, 'Phòng 4', 1200000, 'Ready', 2, 1),
-            new Room_1.Room(5, 'Phòng 5', 1800000, 'Ready', 1, 2),
-            new Room_1.Room(6, 'Phòng 6', 900000, 'EmptyRoom', 1, 1),
-            new Room_1.Room(7, 'Phòng 7', 1300000, 'Ready', 2, 1),
-            new Room_1.Room(8, 'Phòng 8', 1900000, 'Fixing', 3, 2),
-            new Room_1.Room(9, 'Phòng 9', 1100000, 'EmptyRoom', 1, 1),
-            new Room_1.Room(10, 'Phòng 10', 1700000, 'Ready', 2, 2)
+        this.listRooms = [new room_1.Room(1, 'Phòng 1', 1000000, 'Ready', 2, 1),
+            new room_1.Room(2, 'Phòng 2', 1500000, 'EmptyRoom', 1, 1),
+            new room_1.Room(3, 'Phòng 3', 2000000, 'Fixing', 3, 2),
+            new room_1.Room(4, 'Phòng 4', 1200000, 'Ready', 2, 1),
+            new room_1.Room(5, 'Phòng 5', 1800000, 'Ready', 1, 2),
+            new room_1.Room(6, 'Phòng 6', 900000, 'EmptyRoom', 1, 1),
+            new room_1.Room(7, 'Phòng 7', 1300000, 'Ready', 2, 1),
+            new room_1.Room(8, 'Phòng 8', 1900000, 'Fixing', 3, 2),
+            new room_1.Room(9, 'Phòng 9', 1100000, 'EmptyRoom', 1, 1),
+            new room_1.Room(10, 'Phòng 10', 1700000, 'Ready', 2, 2)
         ];
     }
     RoomManager.prototype.showRoom = function () {
@@ -32,6 +32,12 @@ var RoomManager = /** @class */ (function () {
             }
         });
         console.table(sortedRoomList.map(function (_a) {
+            var nameRoom = _a.nameRoom, price = _a.price, status = _a.status;
+            return ({ nameRoom: nameRoom, price: price, status: status });
+        }));
+    };
+    RoomManager.prototype.showRoomName = function () {
+        console.table(this.listRooms.map(function (_a) {
             var nameRoom = _a.nameRoom, price = _a.price, status = _a.status;
             return ({ nameRoom: nameRoom, price: price, status: status });
         }));
@@ -63,7 +69,7 @@ var RoomManager = /** @class */ (function () {
                 console.log("Da ton tai phong ");
             }
         }
-        var addRoom = new Room_1.Room(idRoom, nameRoom, price, status, toiletNumber, numberOfBedrooms);
+        var addRoom = new room_1.Room(idRoom, nameRoom, price, status, toiletNumber, numberOfBedrooms);
         this.listRooms.push(addRoom);
         console.log("Tao phong moi thanh cong ");
     };
@@ -92,6 +98,16 @@ var RoomManager = /** @class */ (function () {
         var A = Math.round(durationInDays * arrTotal[0].price);
         console.log("Tong tien phai thanh toan cua phong la ".concat(A, " VND : "));
         return A;
+    };
+    RoomManager.prototype.deleteRoom = function (id) {
+        var newList = this.listRooms.filter(function (del) { return del.id !== id; });
+        if (newList.length === this.listRooms.length) {
+            console.log("Ko ton tai ");
+        }
+        else {
+            this.listRooms = newList;
+            console.log("Xoa thanh cong ");
+        }
     };
     return RoomManager;
 }());
